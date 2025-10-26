@@ -1,0 +1,5 @@
+Total log lines: 33236604
+INFO: 27389482
+(blank): 5826344
+ERROR: 11183
+WARN: 9595

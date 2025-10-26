@@ -196,7 +196,7 @@ aws ec2 authorize-security-group-ingress \
   --protocol -1 \
   --source-group $SPARK_SG_ID \
   --region $AWS_REGION > /dev/null
-log_success "Intra-cluster communication enabled"
+  --region $AWS_REGION &> /dev/null || log_warn "Duplicate rule ignored"
 
 # Allow SSH from EC2 instance
 log_info "Allowing SSH from EC2 instance ($MY_EC2_IP)..."
@@ -206,7 +206,8 @@ aws ec2 authorize-security-group-ingress \
   --port 22 \
   --cidr ${MY_EC2_IP}/32 \
   --region $AWS_REGION > /dev/null
-log_success "SSH access from EC2 enabled"
+  --region $AWS_REGION &> /dev/null || log_warn "Duplicate rule ignored"
+
 
 # Allow SSH from laptop
 log_info "Allowing SSH from laptop ($MY_LAPTOP_IP)..."
@@ -216,7 +217,8 @@ aws ec2 authorize-security-group-ingress \
   --port 22 \
   --cidr ${MY_LAPTOP_IP}/32 \
   --region $AWS_REGION > /dev/null
-log_success "SSH access from laptop enabled"
+  --region $AWS_REGION &> /dev/null || log_warn "Duplicate rule ignored"
+
 
 # Allow Spark Web UI from EC2
 log_info "Allowing Spark Web UI access from EC2..."
@@ -226,7 +228,8 @@ aws ec2 authorize-security-group-ingress \
   --port 8080-8081 \
   --cidr ${MY_EC2_IP}/32 \
   --region $AWS_REGION > /dev/null
-log_success "Spark Web UI access from EC2 enabled"
+  --region $AWS_REGION &> /dev/null || log_warn "Duplicate rule ignored"
+
 
 # Allow Spark Web UI from laptop
 log_info "Allowing Spark Web UI access from laptop..."
@@ -236,7 +239,8 @@ aws ec2 authorize-security-group-ingress \
   --port 8080-8081 \
   --cidr ${MY_LAPTOP_IP}/32 \
   --region $AWS_REGION > /dev/null
-log_success "Spark Web UI access from laptop enabled"
+  --region $AWS_REGION &> /dev/null || log_warn "Duplicate rule ignored"
+
 
 # Allow Spark Application UI from EC2
 log_info "Allowing Spark Application UI from EC2..."
@@ -246,7 +250,8 @@ aws ec2 authorize-security-group-ingress \
   --port 4040 \
   --cidr ${MY_EC2_IP}/32 \
   --region $AWS_REGION > /dev/null
-log_success "Spark Application UI from EC2 enabled"
+  --region $AWS_REGION &> /dev/null || log_warn "Duplicate rule ignored"
+
 
 # Allow Spark Application UI from laptop
 log_info "Allowing Spark Application UI from laptop..."
@@ -256,7 +261,8 @@ aws ec2 authorize-security-group-ingress \
   --port 4040 \
   --cidr ${MY_LAPTOP_IP}/32 \
   --region $AWS_REGION > /dev/null
-log_success "Spark Application UI from laptop enabled"
+  --region $AWS_REGION &> /dev/null || log_warn "Duplicate rule ignored"
+
 
 ################################################################################
 # Part 3: Create SSH Key Pair
